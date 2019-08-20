@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29102.190
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibNetFramework", "LibNetFramework\LibNetFramework.csproj", "{60FC1665-D2D8-42B1-86E3-DA9C1AE7F729}"
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "ui2", "ui2\ui2.vbproj", "{2DF366E9-FE1F-4847-B535-B58655B4F8A3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{60FC1665-D2D8-42B1-86E3-DA9C1AE7F729}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{60FC1665-D2D8-42B1-86E3-DA9C1AE7F729}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{60FC1665-D2D8-42B1-86E3-DA9C1AE7F729}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{60FC1665-D2D8-42B1-86E3-DA9C1AE7F729}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2DF366E9-FE1F-4847-B535-B58655B4F8A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2DF366E9-FE1F-4847-B535-B58655B4F8A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2DF366E9-FE1F-4847-B535-B58655B4F8A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2DF366E9-FE1F-4847-B535-B58655B4F8A3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5AA3B351-B4C5-4C2B-A454-7F840C630BC1}
+	EndGlobalSection
+EndGlobal
