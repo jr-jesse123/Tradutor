@@ -18,6 +18,7 @@ namespace LibTradutorNetFramework
         public event EventHandler EnviarLog;
         public event EventHandler Finalizado;
         public event EventHandler EnviarErro;
+        public event EventHandler<int> Progresso;
         
         
 
@@ -38,14 +39,18 @@ namespace LibTradutorNetFramework
 #endif
             {
 
-            EnviarLog?.Invoke(this, new eventargstring() { log = "Enviando Arquivos Para Núvem, esta estapa deve demorar cerca de 30 minutos" });
+            EnviarLog?.Invoke(this, new eventargstring() { log = "Enviando Arquivos Para Núvem"});
 
             GoogleStorageApi GoogleStorageApi = new GoogleStorageApi();
-
+                GoogleStorageApi.Evolucao += GoogleStorageApi_Evolucao;
             GoogleStorageApi.Armazenar(path, arquivo);
-            EnviarLog?.Invoke(this, new eventargstring() { log = "Envio Completo, Solicitando Trancrição, esta etapa Deve demorar cerca de 20 minutos" });
-            
+
+                EnviarLog?.Invoke(this, new eventargstring() { log = "Arquivos Enviados Para núvem, Solicitando Trancrição" });
+
+                ApiGoogleSpeech.Progresso += ApiGoogleSpeech_Progresso;
             RepeatedField<SpeechRecognitionResult> data = ApiGoogleSpeech.AsyncRecognizeGcs(arquivo);
+
+
             ListaFormatada = new List<SpeechForMongo>();
                 
             foreach (SpeechRecognitionResult item in data)
@@ -54,7 +59,7 @@ namespace LibTradutorNetFramework
                 ListaFormatada.Add(itemformatado);
             }
 
-            EnviarLog?.Invoke(this, new eventargstring() { log = "Transcrições recebidas, Iniciando Tradução. Esta estapa deve demorar cerca de 20 minutos" });
+            EnviarLog?.Invoke(this, new eventargstring() { log = "Transcrições recebidas, Iniciando Tradução"});
             TraduzirFrasesCompletas(ListaFormatada);
 
 
@@ -77,7 +82,15 @@ namespace LibTradutorNetFramework
 #endif
         }
 
-        
+        private void ApiGoogleSpeech_Progresso(object sender, int e)
+        {
+            Progresso?.Invoke(this, e);
+        }
+
+        private void GoogleStorageApi_Evolucao(object sender, int e)
+        {
+            Progresso?.Invoke(this, e);
+        }
 
         private void CriarLegendasCompletas(List<SpeechForMongo> ListaFormatada)
         {
@@ -106,6 +119,13 @@ namespace LibTradutorNetFramework
 
             foreach (var item in listaFormatada)
             {
+                var a = listaFormatada.IndexOf(item);
+                var b = listaFormatada.Count;
+                
+                int porcentagem = (int)((a / (double)b) * 100);
+                Progresso?.Invoke(this, porcentagem);
+
+                
                 foreach (var possibilidade in item.Possibilidades)
                 {
                     possibilidade.Traducao = ApiTransateGoogle.Traduzir(possibilidade.transcript);
@@ -168,34 +188,3 @@ namespace LibTradutorNetFramework
         }
     }
 }
-
-public static class EventosTradutos { 
-}
-
-
-
-//if (VerificarFrasesSalvasNoBanco())
-//{
-//    goto escreverlegendas;
-//}
-
-
-
-
-//private bool VerificarFrasesSalvasNoBanco()
-//{
-//    ListaFormatada = (List<SpeechForMongo>)mongo.LoadRecords<SpeechForMongo>(arquivo);
-//    if (ListaFormatada.Count > 0)
-//    {
-//        Console.Write("Existe uma tradução com este nome presente no banco de Dados, deseja utilizá-la? (S)/(N)" + Environment.NewLine);
-//        var opcao = Console.ReadLine();
-
-//        if (opcao.Contains("S") | opcao.Contains("s"))
-//        {
-//            return true;
-//        }
-//        return false;
-//    }
-//    EnviandoArquivoNuvem?.Invoke(this, new EventArgs());
-//    return false;
-//}

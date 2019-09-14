@@ -10,9 +10,12 @@ using System.Threading.Tasks;
 
 namespace LibTradutorNetFramework
 {
+
  
     public class ApiGoogleSpeech
+        
     {
+        public static event EventHandler<int> Progresso;
         public static RepeatedField<SpeechRecognitionResult> AsyncRecognizeGcs(string NomeDoArquivo)
        {
             var speech = SpeechClient.Create();
@@ -45,6 +48,8 @@ namespace LibTradutorNetFramework
             {
                 longOperation = longOperation.PollOnce();
                 var porcentagem = longOperation.Metadata.ProgressPercent;
+                Progresso?.Invoke(null, porcentagem);
+                Thread.Sleep(100);
             }
 
 

@@ -12,21 +12,27 @@ namespace LibTradutorNetFramework
 {
     class GoogleStorageApi
     {
-        public  event EventHandler<IUploadProgress> Evolucao;   
+        private double size;
+        public  event EventHandler<int> Evolucao;   
         public void Armazenar(string Path, string NomeArquivo)
         {
+            size = new FileInfo(Path).Length;
+            //***************************************
             StorageClient storageClient = StorageClient.Create();
             FileStream stream = File.OpenRead(Path);
             var progress = new Progress<IUploadProgress>(p => this.OnUploadProgress(p));
             var upload = storageClient.UploadObjectAsync("audios_para_traducao", NomeArquivo, "audio/wav", stream, progress: progress);
             upload.Wait();
+            //***************************************
         }
 
 
-         void OnUploadProgress(IUploadProgress progress)
+        void OnUploadProgress(IUploadProgress progress)
         {
-            Evolucao?.Invoke(this, progress);
             
+
+            int porcetagem = (int)((progress.BytesSent / size)*100);
+            Evolucao?.Invoke(this, porcetagem);
         }
     }
 

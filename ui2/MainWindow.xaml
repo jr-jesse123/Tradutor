@@ -24,7 +24,8 @@
 
             <Label Content="Arquivos Disponíveis"/>
             
-            <ListView x:Name="ListaTraducoes">
+            <ListView x:Name="ListaTraducoes"
+                      MaxHeight="350">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                     <Label Content="{Binding}"/>
@@ -74,8 +75,8 @@
             </TextBox>
 
             
-            <ProgressBar x:Name="EProgressBar"
-                         Height="50"/>
+            <ProgressBar x:Name="EProgressBar" Minimum="0" Maximum="100"
+                         Height="50" Margin="10"/>
             
         </StackPanel>
 

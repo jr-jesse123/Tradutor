@@ -2,8 +2,6 @@
 Imports System.ComponentModel
 Imports System.Threading
 Imports System.Windows.Threading
-Imports MongoDB.Bson
-Imports Squirrel
 Imports LibTradutorNetFramework
 
 
@@ -14,7 +12,6 @@ Class MainWindow
     Public WithEvents Tradutor As New Tradutor
 
 
-
     Sub New()
 
         ' Esta chamada é requerida pelo designer.
@@ -22,20 +19,12 @@ Class MainWindow
 
         ' Adicione qualquer inicialização após a chamada InitializeComponent().
 
-        AdicionarNumeroVersao()
-
         Me.ListaTraducoes.ItemsSource = Traducoes
 
+
+
     End Sub
 
-
-
-    Private Sub AdicionarNumeroVersao()
-        Dim assembly = System.Reflection.Assembly.GetExecutingAssembly
-        Dim versioninfo = FileVersionInfo.GetVersionInfo(assembly.Location)
-        Me.Title += $" v.{versioninfo.FileVersion} "
-
-    End Sub
 
 
     Private Function ObterTraducoes() As List(Of String)
@@ -43,16 +32,27 @@ Class MainWindow
         Dim x As New LibTradutorNetFramework.MongoDb("TRADUÇÃO")
         Traducoes = x.ObterTraducoesProntas()
 
+        Dim output As New List(Of String)
+        For Each traducao In Traducoes
+            Try
+                Dim a = IO.Path.GetFileNameWithoutExtension(traducao)
+                output.Add(a)
+            Catch ex As Exception
+
+            End Try
+        Next
+
+        Return output
+
+
         Return Traducoes
 
     End Function
 
-
-
     Private Sub MostrarLog(sender As Object, text As eventargstring) Handles Tradutor.EnviarLog
 
         Dispatcher.Invoke(Sub()
-                              Me.LOG.Text += Environment.NewLine + text.log + " " + Now.ToShortTimeString
+                              Me.LOG.Text = text.log
                           End Sub, DispatcherPriority.Background)
 
     End Sub
@@ -137,6 +137,10 @@ Class MainWindow
 
                               Traducoes = ObterTraducoes()
                               ListaTraducoes.ItemsSource = Traducoes
+                              EProgressBar.Value = 0
+
+                              LOG.Text = "Finalizado"
+
                           End Sub)
     End Sub
 
@@ -147,4 +151,13 @@ Class MainWindow
                           End Sub, DispatcherPriority.Background)
 
     End Sub
+
+    Private Sub ProgressUpdate(sender As Object, porcentagem As Integer) Handles Tradutor.Progresso
+
+        Dispatcher.Invoke(Sub()
+                              EProgressBar.Value = porcentagem
+                          End Sub, DispatcherPriority.Background)
+
+    End Sub
+
 End Class

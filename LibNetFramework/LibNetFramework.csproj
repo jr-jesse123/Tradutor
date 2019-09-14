@@ -174,24 +174,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AlternativeForMongo.cs" />
+    <Compile Include="Entidades\AlternativeForMongo.cs" />
     <Compile Include="APIS GOOGLE\ApiGoogleSpeech.cs" />
     <Compile Include="APIS GOOGLE\ApiTranslateGoogle.cs" />
     <Compile Include="APIS GOOGLE\EventArgsStatus.cs" />
     <Compile Include="APIS GOOGLE\GoogleStorageApi.cs" />
-    <Compile Include="ConversorVideoAudio.cs" />
-    <Compile Include="eventargstring.cs" />
-    <Compile Include="Frase.cs" />
+    <Compile Include="tools\ConversorVideoAudio.cs" />
+    <Compile Include="tools\eventargstring.cs" />
+    <Compile Include="Entidades\Frase.cs" />
     <Compile Include="Legendas\Legenda.cs" />
     <Compile Include="Legendas\LegendaSrt.cs" />
     <Compile Include="Legendas\LegendasTxt.cs" />
     <Compile Include="Legendas\LegendasTxt2.cs" />
-    <Compile Include="MONGODB.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="tools\MONGODB.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SeparadorDeFrases.cs" />
-    <Compile Include="SpeechForMongo.cs" />
-    <Compile Include="Tradutor.cs" />
+    <Compile Include="tools\SeparadorDeFrases.cs" />
+    <Compile Include="Entidades\SpeechForMongo.cs" />
+    <Compile Include="Entidades\Tradutor.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
