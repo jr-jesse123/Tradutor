@@ -10,15 +10,17 @@ using System.Threading.Tasks;
 
 namespace LibTradutorNetFramework
 {
-
- 
     public class ApiGoogleSpeech
         
     {
         public static event EventHandler<int> Progresso;
         public static RepeatedField<SpeechRecognitionResult> AsyncRecognizeGcs(string NomeDoArquivo)
        {
-            var speech = SpeechClient.Create();
+
+            var cred = GoogleCredential.FromFile("./credential.json");
+            var builder = new SpeechClientBuilder() { CredentialsPath = "./credential.json" };
+            var speech = builder.Build();
+            //var speech = SpeechClient.Create();
             Operation<LongRunningRecognizeResponse, LongRunningRecognizeMetadata>  longOperation;
             try
             {
@@ -29,8 +31,6 @@ namespace LibTradutorNetFramework
                     EnableAutomaticPunctuation = true,
                     AudioChannelCount = 2,
                 }, RecognitionAudio.FromStorageUri($@"gs://audios_para_traducao/{NomeDoArquivo}")); //($@"gs://audios_para_traducao/{NomeDoArquivo}"
-
-
             }
             catch (Exception)
             {

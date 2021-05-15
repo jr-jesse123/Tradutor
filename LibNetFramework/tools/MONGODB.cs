@@ -24,15 +24,18 @@ public class MongoDb
 
     public MongoDb(string database)
     {
-        MongoClient client = new MongoClient("mongodb+srv://Jesse:VaThklsWs7i9j1SH@cluster0-fasvt.mongodb.net");
+            //"mongodb+srv://<username>:<password>@cluster0.orjcd.azure.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
+            //mongodb://localhost:27017/?readPreference=primary&appname=MongoDB%20Compass&ssl=false
+            //MongoClient client = new MongoClient("mongodb+srv://Jesse:VaThklsWs7i9j1SH@cluster0-fasvt.mongodb.net");
+            MongoClient client = new MongoClient("mongodb://localhost:27017/?readPreference=primary&appname=MongoDB%20Compass&ssl=false");
 
-        // a anotação abaixo serve para mapear classes que agem de maneira diferente
-        // On Error Resume Next
-        // BsonClassMap.RegisterClassMap(Of Pacote)()
-        // BsonClassMap.RegisterClassMap(Of PacoteNossoModoPlus)()
-        // On Error GoTo 0
+            // a anotação abaixo serve para mapear classes que agem de maneira diferente
+            // On Error Resume Next
+            // BsonClassMap.RegisterClassMap(Of Pacote)()
+            // BsonClassMap.RegisterClassMap(Of PacoteNossoModoPlus)()
+            // On Error GoTo 0
 
-        db = client.GetDatabase(database);
+            db = client.GetDatabase(database);
     }
 
     public void InserRecord<T>(string table, T record)

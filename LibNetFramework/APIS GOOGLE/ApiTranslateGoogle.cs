@@ -10,6 +10,7 @@
 
 
 using System.Collections.Generic;
+using Google.Apis.Auth.OAuth2;
 using Google.Cloud.Translation.V2;
 
 namespace LibTradutorNetFramework
@@ -18,8 +19,8 @@ namespace LibTradutorNetFramework
     {
         public static string Traduzir(string frase)
         {
-            
-            TranslationClient client = TranslationClient.Create();
+            var cred = GoogleCredential.FromFile("./credential.json");
+            TranslationClient client = TranslationClient.Create(cred);
             var response = client.TranslateText(frase, LanguageCodes.Portuguese);
             return response.TranslatedText;
         }

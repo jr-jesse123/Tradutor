@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+  <PropertyGroup>
+    <TargetFramework>net5.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <AssemblyName>FastLegenda.Modules.ModuleName</AssemblyName>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Prism.Wpf" Version="8.0.0.1909" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\FastLegenda.Core\FastLegenda.Core.csproj" />
+    <ProjectReference Include="..\..\Services\FastLegenda.Services.Interfaces\FastLegenda.Services.Interfaces.csproj" />
+  </ItemGroup>
+</Project>

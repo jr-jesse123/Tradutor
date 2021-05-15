@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net5.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <AssemblyName>FastLegenda</AssemblyName>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Prism.DryIoc" Version="8.0.0.1909" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FastLegenda.Core\FastLegenda.Core.csproj" />
+    <ProjectReference Include="..\Modules\FastLegenda.Modules.ModuleName\FastLegenda.Modules.ModuleName.csproj" />
+    <ProjectReference Include="..\Services\FastLegenda.Services.Interfaces\FastLegenda.Services.Interfaces.csproj" />
+    <ProjectReference Include="..\Services\FastLegenda.Services\FastLegenda.Services.csproj" />
+  </ItemGroup>
+</Project>
